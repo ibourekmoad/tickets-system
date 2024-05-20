@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static widget_tweaks %}
+{% block dashcontent %}
+    <div class="row">
+        <div class="col">
+            <div class="p-3 mb-4 bg-light rounded-3">
+                <h1 class="display-5 fw-bold">{{ ticket.ticket_title }}</h1>
+                <p class="fs-5">{{ ticket.ticket_description }}</p>
+                {% if ticket.status == 'Active' %}
+                    <span class="badge bg-info">{{ ticket.status }}</span>
+                {% elif ticket.status == 'Pending' %}
+                    <span class="badge bg-warning">{{ ticket.status }}</span>
+                {% else %}
+                    <span class="badge bg-success">{{ ticket.status }}</span>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="d-flex h-100">
+                <div class="card flex-grow-1">
+                    <div class="card-body">
+                        <h5 class="card-title">Additional Information</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Ticket ID: {{ ticket.ticket_id }}</li>
+                            <li class="list-group-item">Customer: {{ ticket.customer }}</li>
+                            <li class="list-group-item">Assigned Engineer: {{ ticket.engineer }}</li>
+                            <li class="list-group-item">Created On: {{ ticket.created_at }}</li>
+                            <li class="list-group-item">Severity: {{ ticket.severity }}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if ticket.is_resolved %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Resolution Steps</h5>
+                    <p>{{ ticket.resolution_steps }}</p>
+                </div>
+            </div>
+        {% endif %}
+        {% if request.user.is_engineer %}
+            <div class="col-md-6">
+    <div class="p-3 bg-light border rounded-3 h-100">
+        <h2>Resolution Steps</h2>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Enter Resolution Steps</h5>
+                <form id="resolutionForm" action="{% url 'resolve-ticket' ticket.ticket_id %}" method="post">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="resolution_steps" class="form-label">Resolution Steps:</label>
+                        <textarea class="form-control" id="resolution_steps" name="resolution_steps" rows="3"></textarea>
+                    </div>
+                    <button type="button" class="btn custom-btn-color" data-bs-toggle="modal"
+                            data-bs-target="#confirmationModal">Close The Ticket
+                    </button>
+                    <div class="modal fade" id="confirmationModal" tabindex="-1"
+                         aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="confirmationModalLabel">Confirmation</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Are you sure you want to submit the resolution steps?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                        Cancel
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="confirmSubmit">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+
+{% endblock %}
+{% block script %}
+	
+<script>
+    document.getElementById('confirmSubmit').addEventListener('click', function() {
+        document.getElementById('resolutionForm').submit();
+    });
+</script>
+{% endblock %}

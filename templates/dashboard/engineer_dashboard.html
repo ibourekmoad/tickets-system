@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block dashcontent %}
+    <div class="bg-light p-5 rounded">
+        <h1>Customer Dashboard</h1>
+        <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll,
+            this navbar remains in its original position and moves with the rest of the page.</p>
+        <a class="btn btn-lg custom-btn-color" href="{% url 'engineer-active-ticket' %}" role="button">View Active
+            Ticket</a>
+    </div>
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Tickets</h5>
+                        <p class="card-text">{{ active_ticket_count }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Closed Tickets</h5>
+                        <p class="card-text">{{ closed_ticket_count }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Tickets</h5>
+                        <p class="card-text">{{ tickets_count }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %} 

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static widget_tweaks %}
+{% block dashcontent %}
+
+    <div class="row justify-content-center">
+        <!-- Card with Image and Form -->
+        <div class="col-md-10 col-lg-8 mb-4">
+            <div class="card border-0 shadow-lg">
+                <div class="row g-0">
+                    <!-- Image Column -->
+                    <div class="col-md-6">
+                        <img src="{% static 'assets/CreateNewTicket.png' %}" class="img-fluid rounded-start"
+                             alt="Create New Ticket">
+                    </div>
+                    <!-- Form Column -->
+                    <div class="col-md-6 bg-light">
+                        <div class="card-body">
+                            <h5 class="card-title mb-4 text-center">Fill out Ticket Information</h5>
+                            <form action="{% url 'create_ticket' %}" method="POST" class="p-3">
+                                {% csrf_token %}
+                                <div class="mb-3">
+                                    <label for="ticket_title" class="form-label">Ticket Title</label>
+                                    {% render_field form.ticket_title class="form-control rounded-pill" %}
+                                </div>
+                                <div class="mb-3">
+                                    <label for="ticket_description" class="form-label">Ticket Description</label>
+                                    {% render_field form.ticket_description class="form-control input-sm" style="height:100px" %}
+                                </div>
+                                <button type="submit" class="btn custom-btn-color btn-lg w-100 rounded-pill hover-shadow">
+                                    Create Ticket
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

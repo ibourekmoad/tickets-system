@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block dashcontent %}
+<div class="container">
+    <h2 class="mb-4">Assign Tickets</h2>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+        {% for ticket in tickets %}
+        <div class="col">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">{{ ticket.ticket_title }}</h6>
+                    <table class="table table-sm">
+                        <tbody>
+                            <tr>
+                                <th scope="row">ID:</th>
+                                <td><a href="{% url 'details-ticket' ticket.ticket_id %}" >{{ ticket.ticket_id }}</a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Cust:</th>
+                                <td>{{ ticket.customer }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Date:</th>
+                                <td>{{ ticket.created_at }}</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <a href="{% url 'assign-ticket' ticket.ticket_id %}" class="btn btn-sm custom-btn-color">Assign</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

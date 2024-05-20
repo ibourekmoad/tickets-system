@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static humanize %}
+
+{% block dashcontent %}
+   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    {% for ticket in tickets %}
+    <div class="col mb-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ ticket.ticket_title }}</h5>
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <p class="card-text m-0"><small class="text-muted">{{ ticket.created_at|naturaltime }}</small></p>
+                    <p class="card-text m-0"><small class="text-muted">{{ ticket.ticket_id }}</small></p>
+                </div>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'details-ticket' ticket.ticket_id %}" class="btn custom-btn-color btn-sm">Details<i class="bi bi-arrow-right"></i></a>
+                {% if ticket.status == 'Active' %}
+                    <a href="#" class="btn btn-warning btn-sm">{{ ticket.status }}</a>
+                {% elif ticket.status == 'Pending' %}
+                    <a href="#" class="btn btn-danger btn-sm">{{ ticket.status }}</a>
+                {% else %}
+                    <a href="#" class="btn btn-success btn-sm">{{ ticket.status }}</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

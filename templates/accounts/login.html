@@ -1,0 +1,38 @@
+{% extends 'accounts/base.html' %}
+{% block heading %}
+    <h1 class="my-3 my-lg-5 display-4 display-lg-3 fw-bold ls-tight">
+        Welcome to Django <br/>
+        <span class="text-primary">Ticketing Management System</span>
+    </h1>
+    <p class="small mb-4 mb-lg-5" style="color: hsl(217, 10%, 50.8%)">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+        quibusdam tempora at cupiditate quis eum maiores libero
+        veritatis? Dicta facilis sint aliquid ipsum atque?
+    </p>
+{% endblock %}
+{% block content %}
+    <form action="{% url 'login' %}" method="POST" class="mx-auto" style="max-width: 400px;">
+        {% csrf_token %}
+
+        <!-- Email input -->
+        <div class="form-floating mb-4">
+            <input type="email" name="username" id="form3Example3" class="form-control">
+            <label for="form3Example3">Email address</label>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-floating mb-4">
+            <input type="password" name="password" id="form3Example4" class="form-control">
+            <label for="form3Example4">Enter Password</label>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-block mb-4">Sign In</button>
+    
+        <div class="text-center" >
+            <small class="text-muted">You don't have an account? <a href="{% url 'register' %}">Sign Up</a></small>
+        </div>
+    
+    </form>
+{% endblock %}

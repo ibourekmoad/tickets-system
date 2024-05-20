@@ -1,0 +1,43 @@
+{% extends 'accounts/base.html' %}
+{% load widget_tweaks %}
+{% block heading %}
+    <h1 class="my-3 my-lg-5 display-4 display-lg-3 fw-bold ls-tight">
+        Register To Use <br/>
+        <span class="text-primary">Ticketing Management System</span>
+    </h1>
+    <p style="color: hsl(217, 10%, 50.8%)">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        Eveniet, itaque accusantium odio, soluta, corrupti aliquam
+        quibusdam tempora at cupiditate quis eum maiores libero
+        veritatis? Dicta facilis sint aliquid ipsum atque?
+    </p>
+{% endblock %}
+{% block content %}
+    <form action="{% url 'register' %}" method="POST" class="mx-auto" style="max-width: 400px;">
+        {% csrf_token %}
+
+        <!-- Email input -->
+        <div class="form-floating mb-4">
+            {% render_field form.email class="form-control" %}
+            <label for="id_email">Email address</label>
+        </div>
+
+        <!-- Password input -->
+        <div class="form-floating mb-4">
+            {% render_field form.password1 class="form-control" %}
+            <label for="id_password1">Enter Password</label>
+        </div>
+
+        <!-- Confirm Password input -->
+        <div class="form-floating mb-4">
+            {% render_field form.password2 class="form-control" %}
+            <label for="id_password2">Confirm Password</label>
+        </div>
+
+        <!-- Submit button -->
+        <button type="submit" class="btn btn-primary btn-block mb-4">Sign Up</button>
+        <div class="text-center">
+            <small class="text-muted">Already have an account? <a href="{% url 'login' %}">Sign In</a></small>
+        </div>
+    </form>
+{% endblock %}

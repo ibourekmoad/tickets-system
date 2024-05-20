@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block dashcontent %}
+	<div class="bg-light p-5 rounded">      
+    <h1>Admin Dashboard</h1>
+    <p class="lead">This example is a quick exercise to illustrate how the top-aligned navbar works. As you scroll, this navbar remains in its original position and moves with the rest of the page.</p>
+    <a class="btn btn-lg custom-btn-color" href="{% url 'queue-ticket' %}" role="button">View Active Ticket</a>
+  </div>
+{% endblock %} 
